@@ -1,8 +1,5 @@
-//#include <bits/types/FILE.h>
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <cstring>
 
 
@@ -15,9 +12,9 @@
 
 
 /* Private Functions ---------------------------------------------------------*/
-void printHEX(const u_int8_t *hex, const size_t size);
+void printHEX(const unsigned char *hex, const size_t size);
 size_t isWhere(FILE *f, const char* rplc, const char* tRplc);
-bool eqMem(u_int8_t* bf1, u_int8_t* bf2, size_t sbf);
+bool eqMem(unsigned char* bf1, unsigned char* bf2, size_t sbf);
 
 /*******************************************************************************
  * substituir uma string dentro de um arquivo binário ja compilado
@@ -88,8 +85,8 @@ int main(const int argc, const char *argv[]){
 size_t isWhere(FILE *f, const char* rplc, const char* tRplc){
 	const size_t sizeSuwap = strlen(rplc);
 	size_t cursor =  (size_t)EOF;						// conversão de tipo EOF = -1
-	u_int8_t swap[sizeSuwap];
-	u_int8_t byte;
+	unsigned char swap[sizeSuwap];
+	unsigned char byte;
 
 	for(size_t idx=0; idx<sizeSuwap; idx++) swap[idx] = 0x00;
 
@@ -97,7 +94,7 @@ size_t isWhere(FILE *f, const char* rplc, const char* tRplc){
 		memcpy(swap, swap+1, sizeSuwap);
 		swap[sizeSuwap-1] = byte;
 
-		if(eqMem((u_int8_t*)rplc, swap, sizeSuwap)){
+		if(eqMem((unsigned char*)rplc, swap, sizeSuwap)){
 			cursor = ftell(f);
 			printf("\n Localizado: ");
 			printHEX(swap, sizeSuwap);
@@ -114,7 +111,7 @@ size_t isWhere(FILE *f, const char* rplc, const char* tRplc){
  * @param const u_int8_t*    *hex    bloco de memória
  * @param const size_t    size    tamanho do bloco de memória
 *******************************************************************************/
-void printHEX(const u_int8_t *hex, const size_t size){
+void printHEX(const unsigned char *hex, const size_t size){
 	for(size_t i=0; i<size; i++ ){
 		printf("%02x ",  *hex++);
 	}
@@ -129,7 +126,7 @@ void printHEX(const u_int8_t *hex, const size_t size){
  *
  * @return bool true se os blocos são iguais
 *******************************************************************************/
-bool eqMem(u_int8_t* bf1, u_int8_t* bf2, size_t sbf){
+bool eqMem(unsigned char* bf1, u_int8_t* bf2, size_t sbf){
 	for(size_t idx=0; idx<sbf; idx++){
 		if(bf1[idx] != bf2[idx]) return false;
 	}
