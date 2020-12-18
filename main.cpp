@@ -126,7 +126,7 @@ void printHEX(const unsigned char *hex, const size_t size){
  *
  * @return bool true se os blocos são iguais
 *******************************************************************************/
-bool eqMem(unsigned char* bf1, u_int8_t* bf2, size_t sbf){
+bool eqMem(unsigned char* bf1, unsigned char* bf2, size_t sbf){
 	for(size_t idx=0; idx<sbf; idx++){
 		if(bf1[idx] != bf2[idx]) return false;
 	}
